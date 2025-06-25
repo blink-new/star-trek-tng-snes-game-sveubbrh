@@ -60,6 +60,7 @@ interface Enemy {
   faction: string;
   position: [number, number, number];
   velocity: [number, number, number];
+  rotation: [number, number, number];
   shields: number;
   hull: number;
   aiState: 'patrol' | 'attack' | 'retreat' | 'idle';
@@ -410,6 +411,7 @@ function StarTrekGame() {
           (Math.random() - 0.5) * 100
         ],
         velocity: [0, 0, 0],
+        rotation: [0, 0, 0],
         shields: 100,
         hull: 100,
         aiState: Math.random() < enemy.hostility ? 'attack' : 'patrol'
@@ -1248,7 +1250,7 @@ function StarTrekGame() {
                   />
                   <line 
                     x1="0" y1={`${i * 5}%`} 
-                    x2="100%" y2={`${i * 5}%`} 
+                    x2="100%" y2={`${i * 5}%` }
                     stroke={LCARS_COLORS.blue} 
                     strokeWidth="1" 
                   />
