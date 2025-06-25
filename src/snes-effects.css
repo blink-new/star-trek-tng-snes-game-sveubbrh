@@ -1,0 +1,463 @@
+/* Enhanced LCARS and SNES-Style Effects */
+
+/* LCARS Color Animations */
+@keyframes lcars-pulse {
+  0%, 100% { 
+    opacity: 0.8;
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes lcars-sweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes lcars-flicker {
+  0%, 98% { opacity: 1; }
+  99%, 100% { opacity: 0.8; }
+}
+
+/* LCARS Button Enhancements */
+.lcars-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.lcars-button:hover {
+  animation: lcars-pulse 1s ease-in-out infinite;
+}
+
+.lcars-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.lcars-button:hover::before {
+  left: 100%;
+}
+
+/* Enhanced Starfield */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes starfield-drift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100vh); }
+}
+
+.star {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.star:nth-child(odd) {
+  animation-delay: 1s;
+}
+
+.star:nth-child(even) {
+  animation-delay: 2s;
+}
+
+/* 3D Perspective Effects */
+@keyframes mode7-scroll {
+  0% { transform: perspective(1000px) rotateX(60deg) translateZ(0px); }
+  100% { transform: perspective(1000px) rotateX(60deg) translateZ(-2000px); }
+}
+
+.perspective-deep {
+  perspective: 2000px;
+  perspective-origin: center top;
+}
+
+.mode7-bg {
+  animation: mode7-scroll 15s linear infinite;
+}
+
+/* Warp Effect Enhancements */
+@keyframes warp-tunnel {
+  0% { 
+    transform: scale(0.1) translateZ(1000px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(5) translateZ(-1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes warp-streak {
+  0% { 
+    transform: translateX(-200vw) scaleX(0.1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(200vw) scaleX(10);
+    opacity: 0;
+  }
+}
+
+.warp-streak {
+  animation: warp-streak 0.2s ease-out infinite;
+}
+
+.warp-tunnel {
+  animation: warp-tunnel 1s ease-out infinite;
+}
+
+/* Enhanced CRT Effect */
+.crt-effect {
+  position: relative;
+  animation: lcars-flicker 0.15s linear infinite;
+}
+
+.crt-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.03) 2px,
+    rgba(0, 255, 255, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.crt-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 1001;
+}
+
+/* Scanline Effects */
+@keyframes scanlines {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.6), transparent);
+  animation: scanlines 2s linear infinite;
+  z-index: 10;
+}
+
+/* Holographic Effects */
+@keyframes hologram {
+  0%, 100% { 
+    opacity: 0.9;
+    filter: hue-rotate(0deg) brightness(1);
+    transform: translateX(0);
+  }
+  25% { 
+    opacity: 1;
+    filter: hue-rotate(90deg) brightness(1.1);
+    transform: translateX(1px);
+  }
+  50% { 
+    opacity: 0.8;
+    filter: hue-rotate(180deg) brightness(0.9);
+    transform: translateX(-1px);
+  }
+  75% { 
+    opacity: 1;
+    filter: hue-rotate(270deg) brightness(1.1);
+    transform: translateX(1px);
+  }
+}
+
+@keyframes hologram-glitch {
+  0%, 90%, 100% { transform: translateX(0); }
+  95% { transform: translateX(2px); }
+  97% { transform: translateX(-2px); }
+}
+
+.hologram {
+  animation: hologram 4s ease-in-out infinite, hologram-glitch 0.1s ease-in-out infinite;
+}
+
+/* Enhanced Color Cycling */
+@keyframes color-cycle {
+  0% { filter: hue-rotate(0deg) saturate(1.2); }
+  25% { filter: hue-rotate(90deg) saturate(1.4); }
+  50% { filter: hue-rotate(180deg) saturate(1.6); }
+  75% { filter: hue-rotate(270deg) saturate(1.4); }
+  100% { filter: hue-rotate(360deg) saturate(1.2); }
+}
+
+.color-cycle {
+  animation: color-cycle 6s linear infinite;
+}
+
+/* Energy Field Effects */
+@keyframes energy-field {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.3),
+      inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 40px rgba(0, 255, 255, 0.6),
+      inset 0 0 40px rgba(0, 255, 255, 0.2);
+  }
+}
+
+.energy-field {
+  animation: energy-field 2s ease-in-out infinite;
+}
+
+/* Particle Effects */
+@keyframes particle-float {
+  0% { 
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(-100vh) translateX(100px) scale(0);
+    opacity: 0;
+  }
+}
+
+.particle {
+  animation: particle-float 8s linear infinite;
+}
+
+/* Ship Movement Patterns */
+@keyframes ship-patrol {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(50px) rotate(90deg); }
+  50% { transform: translateX(0) rotate(180deg); }
+  75% { transform: translateX(-50px) rotate(270deg); }
+  100% { transform: translateX(0) rotate(360deg); }
+}
+
+@keyframes ship-attack {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.enemy-ship {
+  transition: all 0.3s ease;
+}
+
+.enemy-ship.patrol {
+  animation: ship-patrol 8s ease-in-out infinite;
+}
+
+.enemy-ship.attack {
+  animation: ship-attack 0.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px #ff0000);
+}
+
+/* Text Effects */
+@keyframes text-glow {
+  0%, 100% { text-shadow: 0 0 10px currentColor; }
+  50% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+.text-glow {
+  animation: text-glow 2s ease-in-out infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(40, end);
+}
+
+/* Data Stream Effect */
+@keyframes data-stream {
+  0% { transform: translateY(100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+.data-stream {
+  animation: data-stream 3s linear infinite;
+}
+
+/* Quantum Effect */
+@keyframes quantum-flux {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  50% { 
+    transform: scale(1.05) rotate(180deg);
+    filter: blur(1px);
+  }
+}
+
+.quantum-effect {
+  animation: quantum-flux 4s ease-in-out infinite;
+}
+
+/* Enhanced SNES Colors */
+.snes-red { color: #ff4040; filter: drop-shadow(0 0 5px #ff4040); }
+.snes-blue { color: #4040ff; filter: drop-shadow(0 0 5px #4040ff); }
+.snes-green { color: #40ff40; filter: drop-shadow(0 0 5px #40ff40); }
+.snes-yellow { color: #ffff40; filter: drop-shadow(0 0 5px #ffff40); }
+.snes-purple { color: #ff40ff; filter: drop-shadow(0 0 5px #ff40ff); }
+.snes-cyan { color: #40ffff; filter: drop-shadow(0 0 5px #40ffff); }
+.snes-orange { color: #ff8040; filter: drop-shadow(0 0 5px #ff8040); }
+
+/* Background Modes */
+.bg-mode-7 {
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(255, 153, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(0, 153, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, 
+      rgba(0, 0, 50, 0.8) 0%, 
+      rgba(0, 0, 20, 0.9) 50%, 
+      rgba(50, 0, 50, 0.8) 100%
+    );
+  transform-style: preserve-3d;
+}
+
+/* Pixel Perfect Scaling */
+.pixel-perfect {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Responsive LCARS Layout */
+@media (max-width: 768px) {
+  .lcars-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .crt-effect::before {
+    background-size: 100% 2px;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .lcars-button {
+    border-width: 3px;
+  }
+  
+  .hologram {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .star,
+  .warp-streak,
+  .hologram,
+  .color-cycle,
+  .energy-field,
+  .scanlines::before {
+    animation: none;
+  }
+  
+  .crt-effect {
+    animation: none;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff9900;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffb000;
+}
+
+/* Selection Styling */
+::selection {
+  background: rgba(255, 153, 0, 0.3);
+  color: #ffffff;
+}
+
+/* Focus States */
+button:focus,
+input:focus {
+  outline: 2px solid #ff9900;
+  outline-offset: 2px;
+}
+
+/* Loading Animations */
+@keyframes loading-dots {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.loading-dot:nth-child(1) { animation: loading-dots 1.5s infinite 0.0s; }
+.loading-dot:nth-child(2) { animation: loading-dots 1.5s infinite 0.2s; }
+.loading-dot:nth-child(3) { animation: loading-dots 1.5s infinite 0.4s; }
